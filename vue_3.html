@@ -7,32 +7,71 @@
 		<style>
 			.special {background:yellow; border: 1px dotted #fe0000; padding:30px; display:block; text-align:center;}
 			.important {font-weight:bold; font-size:30px;}
+			.card {
+				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+				transition: 0.3s;
+				width: 40%;
+			}
+
+			.card:hover {
+			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+			}
+
+			.container {
+			padding: 2px 16px;
+			}
 		</style>
 	</head>
 	<body>
 	
-	<div id="app">
+	<!-- <div id="app">
 		<span v-if="profile">
-			Profile of {{profile.fname}} {{profile.lname}} 
+			Profile of {{profile.fname}} {{profile.lname}} {{profile.desc}}
 		</span>
 		<span v-else>
 			No Profile Data found.
 		</span>
-	</div>
+	</div> -->
+	<div class="card" id="app">
+		<span v-if="profile">
+			<span v-if="profile.pic">
+				<img src="my-avatar.png" alt="Avatar" style="width:100%">
+			</span>
+			<div class="container">
+					<h4><b>{{profile.fname}} {{profile.lname}}</b></h4> 
+					<span v-if="profile.description">
+						<p>{{profile.description}}</p>
+					</span> 
+					<span v-else>
+						No Profile Description found.
+					</span>
+					<span v-if="profile.bio">
+						<p>{{profile.bio}}</p>
+					</span> 
+					<span v-else>
+						No Bio found.
+					</span>
+			</div>
+		</span>
+		<span v-else>
+			No Profile Data found.
+		</span>
+	 </div>
 	
 	<script>
 	var app = new Vue({
 		el: '#app',
 		
 		data:{
-			/*
+
 			profile:{
 				fname: "John",
-				lname: "Doe"	
+				lname: "Doe",
+				description: "Full Stack Developer",
+				bio:'',
+				pic:"my-avatar.png"	
 			}
-			*/
-		}
-		
+		}	
 	});
 	</script>
 	

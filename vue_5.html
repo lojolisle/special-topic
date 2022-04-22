@@ -6,14 +6,28 @@
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<style>
 			.box{width:200px; height:200px; background:green; border:2px solid black; text-align:center; line-height:200px; color:white;}
+			.redBox{width:100px; height:100px; background:red; border:2px solid black; text-align:center; line-height:200px; color:white;}
 			.hidden{display:none;}
+			.increase{background-color: blue; width: 250px;};
+			.height{height:400px;};
+			.greenBox{width:200px; height:200px; background:green; border:2px solid black; text-align:center; line-height:200px; color:white;}
+	
 		</style>
 	</head>
 	<body>
 	
 	<div id="app">
 		<div v-bind:class="{box:true, hidden:boxHidden}">{{message}}</div>
-		<button v-on:click="showhide();">Click</button>
+		<button v-on:click="showhide();">
+			{{ buttonText }}
+		</button>
+		
+		<!-- <div v-bind:class="{redBox:true, hidden:boxHidden,  increase: hover}"   v-bind:style="newStyle"  @mouseover="hover = true"  @mouseleave="hover = false" ></div> -->
+
+		<div v-bind:class="{redBox:true,  height:boxHeight, increaseHgt: hover}" v-bind:style="newStyle" @mouseover="mouseover"  @mouseleave="mouseleave" >
+
+		</div>
+
 	</div>
 	
 	<script>
@@ -23,15 +37,32 @@
 		data:{
 			boxHeight:200,
 			boxHidden : false,
-			message  : 'Make me disappear!'
+			message  : 'Make me disappear!',
+			buttonText : "Hide",
+			hover: false,
 		},
 		methods:{
 			showhide : function(){
 				console.log(this.boxHidden);
 				if(this.boxHidden){
 					this.boxHidden=false;
+					this.buttonText="Hide";
 				}else{
 					this.boxHidden=true;	
+					this.buttonText="Show";
+				}
+			},
+			mouseover: function() {
+				this.boxHeight = this.boxHeight + 20;
+			},
+			mouseleave: function() {
+
+			}
+		},
+		computed: {
+			newStyle () {
+				return {
+					height: `${this.boxHeight}px`
 				}
 			}
 		}

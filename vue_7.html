@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	
 		<title>J1 Practice</title>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<style>
@@ -10,7 +9,7 @@
 	</head>
 	<body>
 	<p>Dog Treats Problem. <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem hosted by the CCC.</a></p>
-	<div id="app">
+	<!-- <div id="app55">
 		<div class="formfield">
 			<label>Small Treats: <label> <input v-model="treat_qty_small">
 		</div>
@@ -22,10 +21,29 @@
 		</div>
 		<div id="result">
 			<div><label>show diagnostics:</label><input type="checkbox" v-model="treat_diagnostics"></div>
-			<div v-if="treat_diagnostics">Treat Total: {{treat_total}}</div>
+			<div >Treat Total: {{treat_total}}</div>
 			<div v-if="treat_diagnostics">Is_Happy: {{is_happy}}</div>
 			<span v-if="is_happy">{{dog_name}} is Happy!</span>
 			<span v-else>{{dog_name}} is sad..</span>
+		</div>
+	</div> -->
+
+
+	<!-- Problem J2: Epidemiology -->
+	<p>Problem J2: Epidemiology. <a href="https://cemc.uwaterloo.ca/contests/computing/2020/index.html">from the J1 problem hosted by the CCC.</a></p>
+	<div id="app">
+		<div class="formfield">
+			<label>P - People : <label> <input v-model="p">
+		</div>
+		<div class="formfield">
+			<label>N - Infected Persons on Day 0: <label> <input v-model="n">
+		</div>
+		<div class="formfield">
+			<label>R (Infected on day 1): <label> <input v-model="r">
+		</div>
+		<div id="result">
+			<span >On day {{calct_infected_people}}, the total number of people who have had the disease
+				is greater than P  {{this.p}} </span>
 		</div>
 	</div>
 	
@@ -33,25 +51,48 @@
 	var app = new Vue({
 		el: '#app',
 		data:{
-			treat_diagnostics:false,
-			dog_name:"Barley",
-			treat_qty_small:0,
-			treat_qty_medium:0,
-			treat_qty_large:0,
-			treat_value_small:1,
-			treat_value_medium:2,
-			treat_value_large:3
+			// treat_diagnostics:false,
+			// dog_name:"Barley",
+			// treat_qty_small:0,
+			// treat_qty_medium:0,
+			// treat_qty_large:0,
+			// treat_value_small:1,
+			// treat_value_medium:2,
+			// treat_value_large:3,
+
+			p: 0,
+			n: 0,
+			r:0,
+			infected:0,
+			sum:0,
+			output:0
 		},
 		computed:{
-			treat_total:function(){
-				return (this.treat_qty_small * this.treat_value_small) + 
-				(this.treat_qty_medium * this.treat_value_medium) + 
-				(this.treat_qty_large * this.treat_value_large);	
-			},
-			is_happy:function(){
+			// treat_total:function(){
+			// 	return (this.treat_qty_small * this.treat_value_small) + 
+			// 	(this.treat_qty_medium * this.treat_value_medium) + 
+			// 	(this.treat_qty_large * this.treat_value_large);	
+			// },
+			// is_happy:function(){
 				
-				return this.treat_total>=10;	
-			}
+			// 	return this.treat_total>=10;	
+			// },
+			calct_infected_people:function() {
+				// infects n * r people on day 1
+				// find the infected people on day 0
+				this.infected = (this.n * this.r);
+				for (let i = 0; i < 100 ; i++) {
+					// add this to infected count to sum
+					this.sum = this.sum + this.infected;
+					// check if this sum has exceeded the value in p
+					if (this.sum > this.p) {
+						this.output = i + 1;
+						return this.output;
+					}
+					this.infected = this.infected * this.r;		
+				}
+				return 0;	
+			},
 		}
 	});
 	
